@@ -27,4 +27,14 @@ However, Nova adds in a number of other features, starting with version 1.1. It 
 Note that the order in which features will be implemented is not set in stone. If lots of people want a particular feature, I'll prioritize that feature and move it to the top of my to-do list.
 
 ### Installation ###
+Checkout source
+
+Create a build folder
+
+Run cmake in this folder with path to the source
+
+Run make
+
+The built installer is located in the "distributions" folder in the build folder
+
 [Do this](https://github.com/NovaMods/nova-renderer/wiki/Installing,-building,-and-running-on-Windows)

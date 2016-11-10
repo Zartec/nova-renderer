@@ -1,0 +1,14 @@
+--- ../src-base/minecraft/net/minecraft/client/gui/GuiButton.java
++++ ../src-work/minecraft/net/minecraft/client/gui/GuiButton.java
+@@ -124,4 +124,11 @@
+     {
+         this.field_146120_f = p_175211_1_;
+     }
++
++    // Nova - begin
++    public int getButtonHeight()
++    {
++        return field_146121_g;
++    }
++    // Nova - end
+ }

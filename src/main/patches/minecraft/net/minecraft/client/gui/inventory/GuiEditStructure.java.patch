@@ -1,0 +1,18 @@
+--- ../src-base/minecraft/net/minecraft/client/gui/inventory/GuiEditStructure.java
++++ ../src-work/minecraft/net/minecraft/client/gui/inventory/GuiEditStructure.java
+@@ -600,13 +600,13 @@
+         }
+     }
+ 
+-    private static boolean func_189818_a(char p_189818_0_)
++    private static boolean func_189818_a(char p_189818_1_)
+     {
+         boolean flag = true;
+ 
+         for (char c0 : ChatAllowedCharacters.field_189861_b)
+         {
+-            if (c0 == p_189818_0_)
++            if (c0 == p_189818_1_)
+             {
+                 flag = false;
+                 break;

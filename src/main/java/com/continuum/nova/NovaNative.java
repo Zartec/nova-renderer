@@ -1,10 +1,15 @@
 package com.continuum.nova;
 
-import com.sun.jna.*;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import com.sun.jna.Library;
+import com.sun.jna.Memory;
+import com.sun.jna.Native;
+import com.sun.jna.Pointer;
+import com.sun.jna.Structure;
+
 
 public interface NovaNative extends Library
 {
@@ -135,9 +140,7 @@ public interface NovaNative extends Library
         @Override
         protected List<String> getFieldOrder()
         {
-            return Arrays.asList(
-                       "camera_x", "camera_y", "camera_z"
-                   );
+            return Arrays.asList("camera_x", "camera_y", "camera_z");
         }
     }
 
@@ -181,11 +184,8 @@ public interface NovaNative extends Library
         @Override
         protected List<String> getFieldOrder()
         {
-            return Arrays.asList(
-                       "anaglyph", "fog_color_red", "fog_color_green", "fog_color_blue", "display_width",
-                       "display_height", "view_bobbing", "should_render_clouds", "render_distance", "render_menu",
-                       "has_blindness"
-                   );
+            return Arrays.asList("anaglyph", "fog_color_red", "fog_color_green", "fog_color_blue", "display_width", "display_height", "view_bobbing", "should_render_clouds", "render_distance",
+                    "render_menu", "has_blindness");
         }
     }
 
@@ -217,20 +217,12 @@ public interface NovaNative extends Library
 
     enum AtlasType
     {
-        TERRAIN,
-        ENTITIES,
-        GUI,
-        PARTICLES,
-        EFFECTS,
-        FONT,
-        NUM_ATLASES
+        TERRAIN, ENTITIES, GUI, PARTICLES, EFFECTS, FONT, NUM_ATLASES
     }
 
     enum TextureType
     {
-        ALBEDO,
-        NORMAL,
-        SPECULAR
+        ALBEDO, NORMAL, SPECULAR
     }
 
     void init_nova();

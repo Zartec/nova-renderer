@@ -1,0 +1,67 @@
+--- ../src-base/minecraft/net/minecraft/client/Minecraft.java
++++ ../src-work/minecraft/net/minecraft/client/Minecraft.java
+@@ -200,7 +200,12 @@
+ import org.lwjgl.opengl.OpenGLException;
+ import org.lwjgl.opengl.PixelFormat;
+ import org.lwjgl.util.glu.GLU;
++import com.continuum.nova.NovaRenderer;
+ 
++// Nova - start
++import com.continuum.nova.NovaRenderer;
++// Nova -end
++
+ @SideOnly(Side.CLIENT)
+ public class Minecraft implements IThreadListener, ISnooperInfo
+ {
+@@ -306,6 +311,9 @@
+     private boolean field_184129_aV;
+     long field_71421_N = -1L;
+     private String field_71465_an = "root";
++    // Nova - start
++    private NovaRenderer nova = new NovaRenderer();
++    // Nova - end
+ 
+     public Minecraft(GameConfiguration p_i45547_1_)
+     {
+@@ -332,6 +340,10 @@
+         this.field_147129_ai = func_147122_X();
+         this.field_71437_Z = null;
+ 
++        // Nova - start
++        nova.preInit();
++        // Nova - end
++
+         if (p_i45547_1_.field_178742_e.field_178754_a != null)
+         {
+             this.field_71475_ae = p_i45547_1_.field_178742_e.field_178754_a;
+@@ -459,6 +471,9 @@
+         this.field_110451_am.func_110542_a(this.field_71464_q);
+         this.field_110451_am.func_110542_a(new GrassColorReloadListener());
+         this.field_110451_am.func_110542_a(new FoliageColorReloadListener());
++        // Nova - start
++        this.field_110451_am.func_110542_a(nova);
++        // Nova - end
+         AchievementList.field_187982_f.func_75988_a(new IStatStringFormat()
+         {
+             public String func_74535_a(String p_74535_1_)
+@@ -946,6 +961,9 @@
+             int j = scaledresolution.func_78328_b();
+             ((GuiScreen)p_147108_1_).func_146280_a(this, i, j);
+             this.field_71454_w = false;
++            // Nova - start
++            nova.setGuiScreen(p_147108_1_);
++            // Nova - end
+         }
+         else
+         {
+@@ -1745,6 +1763,10 @@
+             if (!this.field_71445_n)
+             {
+                 this.field_71460_t.func_78464_a();
++                // Nova - start
++                this.field_71424_I.func_76318_c("novaGameRenderer");
++                nova.updateRenderer();
++                // Nova - end
+             }
+ 
+             this.field_71424_I.func_76318_c("levelRenderer");

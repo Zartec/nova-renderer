@@ -1,0 +1,14 @@
+--- ../src-base/minecraft/net/minecraft/client/gui/GuiScreen.java
++++ ../src-work/minecraft/net/minecraft/client/gui/GuiScreen.java
+@@ -667,4 +667,11 @@
+     {
+         this.func_146280_a(p_175273_1_, p_175273_2_, p_175273_3_);
+     }
++    
++    // Nova - begin
++    public List<GuiButton> getButtonList()
++    {
++        return field_146292_n;
++    }
++    // Nova - end
+ }

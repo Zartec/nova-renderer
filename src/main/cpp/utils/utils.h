@@ -13,6 +13,7 @@
 #include <algorithm>
 #include <exception>
 
+
 /*!
  * \brief Initializes the logging system
  */
@@ -27,7 +28,13 @@ namespace nova {
      */
     template <typename Cont, typename Func>
     void foreach(Cont container, Func thingToDo) {
-        std::for_each(std::cbegin(container), std::cend(container), thingToDo);
+        /* Test for GCC > 5.1
+         * global functions cbegin, cend, rbegin, rend, crbegin, and crend added in this version */
+        #if __GNUC__ > 5 || (__GNUC__ == 5 && (__GNUC_MINOR__ > 1))
+        std::for_each(std::cbegin(container), std::end(container), thingToDo);
+        #else
+        std::for_each(container.begin(), container.end(), thingToDo);
+        #endif
     };
 
     /*!

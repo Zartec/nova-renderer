@@ -1,0 +1,24 @@
+--- ../src-base/minecraft/net/minecraft/client/renderer/EntityRenderer.java
++++ ../src-work/minecraft/net/minecraft/client/renderer/EntityRenderer.java
+@@ -1986,4 +1986,21 @@
+         GlStateManager.func_179131_c(1.0F, 1.0F, 1.0F, 1.0F);
+         GlStateManager.func_179121_F();
+     }
++
++    // Nova - begin
++    public float getFogColorRed()
++    {
++        return field_175080_Q;
++    }
++
++    public float getFogColorGreen()
++    {
++        return field_175080_Q;
++    }
++
++    public float getFogColorBlue()
++    {
++        return field_175081_S;
++    }
++    // Nova - end
+ }
