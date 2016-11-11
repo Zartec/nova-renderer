@@ -6,8 +6,11 @@
 #include "view/nova_renderer.h"
 #include "utils/utils.h"
 #include <easylogging++.h>
-
+#ifdef WIN32
+#include <Windows.h>
+#else
 #include <pthread.h>
+#endif
 
 
 void error_callback(int error, const char * description) {
@@ -56,8 +59,12 @@ int glfw_gl_window::init() {
 
     glfwSetKeyCallback(window, key_callback);
 
+	#ifdef WIN32
+	LOG(DEBUG) << "Initialized context in thread " << GetCurrentThreadId();
+	#else
     pthread_t thread = pthread_self();
     LOG(DEBUG) << "Initialized context in thread " << thread;
+	#endif
 
     return 0;
 }

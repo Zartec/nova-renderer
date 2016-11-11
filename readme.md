@@ -26,15 +26,78 @@ However, Nova adds in a number of other features, starting with version 1.1. It 
 
 Note that the order in which features will be implemented is not set in stone. If lots of people want a particular feature, I'll prioritize that feature and move it to the top of my to-do list.
 
-### Installation ###
-Checkout source
-
-Create a build folder
-
-Run cmake in this folder with path to the source
-
-Run make
-
-The built installer is located in the "distributions" folder in the build folder
-
-[Do this](https://github.com/NovaMods/nova-renderer/wiki/Installing,-building,-and-running-on-Windows)
+# Installation
+### Windows
+###### Dependencies
+* Java
+* CMake
+* Git
+* VisualStudio (or a standanlone compiler toolset)
+* VulkanSDK
+* Doxygen (if you want to generate docs)
+###### Installation
+1. Clone the source code via git
+2. Create a folder (defaul name "build") inside or outside the source
+3. Setup via CMake
+    * Launch CMake
+    * Set the path to the cloned source code
+    * Set the path to the created build folder
+    * Click generate
+    * Select your VisualStudio version or compiler toolset
+    * Click finish
+    * Click Generate
+4. Build
+    * via VisualStudio
+        * Launch VisualStudio
+        * Open "Nova-Renderer"-Solution from created build folder
+        * Build the target "INSTALL"
+> The built installer is located in the created build folder inside the "jars" folder
+### Linux
+###### Dependencies
+* openjdk-8-jdk (or oracle jdk8)
+* cmake
+* git
+* build-essentials
+* libvulkan-dev
+* xorg-dev
+* libglu1-mesa-dev
+###### Installation
+1. Clone the source code via git
+2. Create a folder (defaul name "build") inside or outside the source
+3. Switch into the created build folder
+4. Run "cmake /path/to/the/source"
+5. Run "make install"
+> The built installer is located in the created build folder inside the "jars" folder
+# Contribute
+### Windows
+###### Pull updates
+1. Pull the updates via git
+2. Redo step 4 from Installation
+###### Push changes
+1. Generate patches (if you have made changes in the minecraft source)
+    * via VisualStudio
+        * Launch VisualStudio
+        * Open "Nova-Renderer"-Solution from created build folder
+        * Build the target "gradle-gen-patches"
+2. Add changes to git
+3. Commit changes
+4. Push changes
+###### Edit java part
+1. Import C:\path\to\build\dir\projects\Nova into Eclipse or IntelliJ
+2. If youve made changes to the minecraft source dont forget to recreate the patches
+> If you run the build before patches are recreated your changes will be overwritten
+### Linux
+###### Pull updates
+1. Pull the updates via git
+2. Redo step 3 and 5 from Installation
+###### Push changes
+1. Generate patches (if you have made changes in the minecraft source)
+    * Switch into the created build folder
+    * Run "make gradle-gen-patches"
+2. Add changes to git
+3. Commit changes
+4. Push changes
+###### Edit java part
+1. Import /path/to/build/dir/projects/Nova into Eclipse or IntelliJ
+2. If youve made changes to the minecraft source dont forget to recreate the patches
+> If you run the build before patches are recreated your changes will be overwritten

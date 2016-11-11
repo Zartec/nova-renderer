@@ -77,6 +77,7 @@ def extraTxts = [
 ]
 
 outputJar {
+    destinationDir = file("${project.buildDir}/distributions")
     classifier = 'universal'
     from extraTxts
 
@@ -90,6 +91,7 @@ outputJar {
 }
 
 installer {
+    destinationDir = file("${project.buildDir}/distributions")
     classifier = 'installer'
     from extraTxts
     from "src/main/resources/nova_logo.png"

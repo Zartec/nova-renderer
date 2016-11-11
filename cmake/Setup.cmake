@@ -3,6 +3,7 @@ include(CheckCCompilerFlag)
 include(CheckCXXCompilerFlag)
 # Include custom modules
 include(CheckoutSubmodule)
+include(SetPolicy)
 
 # Set standards
 set(CMAKE_CXX_STANDARD                  14)
@@ -15,6 +16,12 @@ if(NOT CMAKE_BUILD_TYPE)
 endif()
 
 set(BUILD_SHARED_LIBS                   OFF)
+
+# Set policies
+SetPolicy(CMP0028 NEW) # ENABLE CMP0028: Double colon in target name means ALIAS or IMPORTED target.
+SetPolicy(CMP0054 NEW) # ENABLE CMP0054: Only interpret if() arguments as variables or keywords when unquoted.
+SetPolicy(CMP0042 NEW) # ENABLE CMP0042: MACOSX_RPATH is enabled by default.
+SetPolicy(CMP0063 NEW) # ENABLE CMP0063: Honor visibility properties for all target types.
 
 # Output dirs
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})

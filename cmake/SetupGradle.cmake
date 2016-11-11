@@ -7,7 +7,7 @@ set(GRADLE_PATCHES_DIR "${CMAKE_CURRENT_SOURCE_DIR}/src/main/patches/minecraft")
 if(WIN32)
     set(GRADLE_COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/gradlew.bat")
     set(GRADLE_NATIVES_DIR "${GRADLE_NATIVES_DIR}/win32-x86")
-    set(GRADLE_NATIVE_LIB_IN "${CMAKE_CURRENT_BINARY_DIR}/libnova-renderer.dll")
+    set(GRADLE_NATIVE_LIB_IN "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}/nova-renderer.dll")
     set(GRADLE_NATIVE_LIB_OUT "${GRADLE_NATIVES_DIR}/libnova-renderer.dll")
 else()
     set(GRADLE_COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/gradlew")
@@ -42,6 +42,7 @@ add_custom_command(OUTPUT "${GRADLE_DIST_DIR}"
                    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
 
 add_custom_target(gradle-build ALL DEPENDS "${GRADLE_DIST_DIR}")
+install(DIRECTORY "${GRADLE_DIST_DIR}/" DESTINATION "${CMAKE_CURRENT_BINARY_DIR}/jars" FILES_MATCHING PATTERN "*-installer.jar")
 
 # ForgeGradle generate patches
 add_custom_command(OUTPUT "${GRADLE_PATCHES_DIR}"

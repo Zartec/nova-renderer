@@ -8,7 +8,6 @@
 
 #include <glad/glad.h>
 #include <easylogging++.h>
-#include <pthread.h>
 namespace nova {
     namespace model {
 /*!

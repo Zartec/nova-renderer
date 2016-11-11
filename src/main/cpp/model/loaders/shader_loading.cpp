@@ -155,6 +155,8 @@ namespace nova {
                 const std::vector<std::string>& shader_names
         ) {
             LOG(WARNING) << "Cannot load zipped shaderpack " << shaderpack_name;
-        }
+			std::unordered_map<std::string, shader_source> map;
+			return map;
+		}
     }
 }
