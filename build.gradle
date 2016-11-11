@@ -74,6 +74,9 @@ processJson {
 }
 
 def extraTxts = [
+    'LICENSE',
+    'readme.md',
+    'CONTRIBUTING.md'
 ]
 
 outputJar {

@@ -9,12 +9,15 @@ if(WIN32)
     set(GRADLE_NATIVES_DIR "${GRADLE_NATIVES_DIR}/win32-x86")
     set(GRADLE_NATIVE_LIB_IN "${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}/nova-renderer.dll")
     set(GRADLE_NATIVE_LIB_OUT "${GRADLE_NATIVES_DIR}/libnova-renderer.dll")
+    set(GRADLE_NATIVE_RUN_LIB_OUT "${GRADLE_PROJECT_DIR}/bin/libnova-renderer.dll")
 else()
     set(GRADLE_COMMAND "${CMAKE_CURRENT_SOURCE_DIR}/gradlew")
     if(X64)
         set(GRADLE_NATIVES_DIR "${GRADLE_NATIVES_DIR}/linux-x86-64")
+        set(GRADLE_NATIVE_RUN_LIB_OUT "${GRADLE_PROJECT_DIR}/bin/linux-x86-64/libnova-renderer.so")
     else()
         set(GRADLE_NATIVES_DIR "${GRADLE_NATIVES_DIR}/linux-x86")
+        set(GRADLE_NATIVE_RUN_LIB_OUT "${GRADLE_PROJECT_DIR}/bin/linux-x86/libnova-renderer.so")
     endif()
     set(GRADLE_NATIVE_LIB_IN "${CMAKE_CURRENT_BINARY_DIR}/libnova-renderer.so")
     set(GRADLE_NATIVE_LIB_OUT "${GRADLE_NATIVES_DIR}/libnova-renderer.so")
@@ -30,15 +33,23 @@ add_custom_command(OUTPUT "${GRADLE_NATIVE_LIB_OUT}"
 
 # ForgeGradle setup
 add_custom_command(OUTPUT "${GRADLE_PROJECT_DIR}"
-                   COMMAND ${GRADLE_COMMAND} ARGS -PbuildDir=${CMAKE_CURRENT_BINARY_DIR} -PresourcesDir=${GRADLE_RESOURCES_DIR} setup
+                   COMMAND ${GRADLE_COMMAND} ARGS -PbuildDir="${CMAKE_CURRENT_BINARY_DIR}" -PresourcesDir="${GRADLE_RESOURCES_DIR}" setup
                    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
 
-add_custom_target(gradle-setup ALL DEPENDS "${GRADLE_PROJECT_DIR}")
+add_custom_command(OUTPUT "${GRADLE_PROJECT_DIR}/bin"
+                   DEPENDS "${GRADLE_PROJECT_DIR}"
+                   COMMAND COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_SOURCE_DIR}/run" "${GRADLE_PROJECT_DIR}/bin")
+
+add_custom_command(OUTPUT "${GRADLE_NATIVE_RUN_LIB_OUT}"
+                   DEPENDS nova-renderer "${GRADLE_PROJECT_DIR}/bin/"
+                   COMMAND COMMAND ${CMAKE_COMMAND} -E copy "${GRADLE_NATIVE_LIB_IN}" "${GRADLE_NATIVE_RUN_LIB_OUT}")
+
+add_custom_target(gradle-setup ALL DEPENDS "${GRADLE_NATIVE_RUN_LIB_OUT}")
 
 # ForgeGradle build
 add_custom_command(OUTPUT "${GRADLE_DIST_DIR}"
                    DEPENDS gradle-setup "${GRADLE_NATIVE_LIB_OUT}" "${GRADLE_RESOURCES_DIR}"
-                   COMMAND ${GRADLE_COMMAND} ARGS -PbuildDir=${CMAKE_CURRENT_BINARY_DIR} -PresourcesDir=${GRADLE_RESOURCES_DIR} build
+                   COMMAND ${GRADLE_COMMAND} ARGS -PbuildDir="${CMAKE_CURRENT_BINARY_DIR}" -PresourcesDir="${GRADLE_RESOURCES_DIR}" build
                    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
 
 add_custom_target(gradle-build ALL DEPENDS "${GRADLE_DIST_DIR}")
@@ -47,7 +58,7 @@ install(DIRECTORY "${GRADLE_DIST_DIR}/" DESTINATION "${CMAKE_CURRENT_BINARY_DIR}
 # ForgeGradle generate patches
 add_custom_command(OUTPUT "${GRADLE_PATCHES_DIR}"
                    DEPENDS gradle-setup
-                   COMMAND ${GRADLE_COMMAND} ARGS -PbuildDir=${CMAKE_CURRENT_BINARY_DIR} -PresourcesDir=${GRADLE_RESOURCES_DIR} genPatches
+                   COMMAND ${GRADLE_COMMAND} ARGS -PbuildDir=${CMAKE_CURRENT_BINARY_DIR} -PresourcesDir="${GRADLE_RESOURCES_DIR}" genPatches
                    WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
 
 add_custom_target(gradle-gen-patches DEPENDS "${GRADLE_PATCHES_DIR}")

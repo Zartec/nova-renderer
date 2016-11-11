@@ -2,7 +2,6 @@
 include(CheckCCompilerFlag)
 include(CheckCXXCompilerFlag)
 # Include custom modules
-include(CheckoutSubmodule)
 include(SetPolicy)
 
 # Set standards

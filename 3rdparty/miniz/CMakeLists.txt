@@ -1,5 +1,3 @@
-CheckoutSubmodule(miniz)
-
 add_library(miniz STATIC miniz/miniz.c)
 
 target_include_directories(glad

@@ -37,7 +37,7 @@ Note that the order in which features will be implemented is not set in stone. I
 * Doxygen (if you want to generate docs)
 
 ###### Installation
-1. Clone the source code via git
+1. Clone the source code via git recursive with submodules
 2. Create a folder (defaul name "build") inside or outside the source
 3. Setup via CMake
     * Launch CMake
@@ -66,10 +66,11 @@ Note that the order in which features will be implemented is not set in stone. I
 
 ###### Installation
 1. Clone the source code via git
-2. Create a folder (defaul name "build") inside or outside the source
-3. Switch into the created build folder
-4. Run "cmake /path/to/the/source"
-5. Run "make install"
+2. Run "git submodule --init --update --recursive" inside the source code
+3. Create a folder (defaul name "build") inside or outside the source
+4. Switch into the created build folder
+5. Run "cmake /path/to/the/source"
+6. Run "make install"
 > The built installer is located in the created build folder inside the "jars" folder
 
 # Contribute
